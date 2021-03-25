@@ -4,7 +4,7 @@
       <p
         v-for="msg in messages"
         :key="messages.indexOf(msg)"
-        :class="{ color: msg.color }"
+        :style="{ color: msg.color }"
       >
         <span v-if="msg.name">{{ msg.name }}:</span> {{ msg.message }}
       </p>
@@ -40,6 +40,7 @@ export default {
         name,
         color
       });
+      console.log(color);
       this.$nextTick(() => {
         const chatBox = this.$el.getElementsByClassName("chat-box")[0];
         chatBox.scrollTop = chatBox.clientHeight;
