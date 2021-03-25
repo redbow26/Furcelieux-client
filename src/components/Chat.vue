@@ -1,15 +1,25 @@
 <template>
   <div class="chat">
-    <p v-for="msg in messages" :key="messages.indexOf(msg)" :class="{color: msg.color}">
-      <span v-if="msg.name">{{ msg.name }}:</span> <span>{{ msg.message }}</span>
-    </p>
-    <input type="text" v-model="message" />
-    <button @click="sendMessage">Envoyer le message</button>
+    <div class="chat-box">
+      <p
+        v-for="msg in messages"
+        :key="messages.indexOf(msg)"
+        :class="{ color: msg.color }"
+      >
+        <span v-if="msg.name">{{ msg.name }}:</span> {{ msg.message }}
+      </p>
+    </div>
+    <form @submit.prevent="sendMessage" class="message">
+      <label>
+        <input type="text" v-model="message" />
+      </label>
+      <input type="submit" value="Envoyer le message" />
+    </form>
   </div>
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Chat",
@@ -30,9 +40,10 @@ export default {
         name,
         color
       });
-      if (this.messages.length > 25) {
-        this.messages.shift();
-      }
+      this.$nextTick(() => {
+        const chatBox = this.$el.getElementsByClassName("chat-box")[0];
+        chatBox.scrollTop = chatBox.clientHeight;
+      });
     }
   },
   computed: {
@@ -47,6 +58,16 @@ export default {
 };
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.chat {
+  width: 30%;
+  margin: 0 auto;
+}
+.chat-box {
+  border: 1px solid black;
+  overflow-wrap: break-word;
+  border-radius: 5px;
+  height: 70vh;
+  overflow: auto;
+}
 </style>
