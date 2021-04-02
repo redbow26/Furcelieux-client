@@ -1,13 +1,16 @@
 <template>
-  <div class="playerList">
+  <div class="player-list">
     <ul>
       <li
         v-for="player in players"
         :key="player.id"
         :class="{ death: !player.isAlive }"
       >
-        {{ player.name }}
+        <span class="name">
+          {{ player.name }}
+        </span>
         <button
+          class="vote"
           v-if="isVote && playersVote.map(p => p.id).includes(player.id)"
           @click="submitVote(player.id)"
         >
@@ -51,8 +54,23 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .death {
   text-decoration: line-through;
+}
+.player-list {
+  float: right;
+  width: 40vh;
+  line-height: 2em;
+  text-align: left;
+}
+.name {
+  overflow-wrap: break-word;
+}
+.vote {
+  float: right;
+}
+ul {
+  list-style: "- ";
 }
 </style>

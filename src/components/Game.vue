@@ -2,12 +2,15 @@
   <div class="game">
     <span>GAME ID: {{ gameId }}</span>
     <br />
-    <button v-if="!isStarted" @click="startGame">Start the game</button>
+    <div class="config" v-if="!isStarted">
+      <button @click="startGame">Start the game</button>
+    </div>
 
-    <Chat />
-
-    <RoleCard v-if="role" />
-    <PlayerList />
+    <div class="game-info">
+      <RoleCard v-if="role" />
+      <Chat />
+      <PlayerList />
+    </div>
   </div>
 </template>
 
@@ -63,4 +66,11 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.game-info {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  width: 85%;
+}
+</style>
